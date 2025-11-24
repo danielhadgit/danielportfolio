@@ -1,0 +1,1 @@
+Note: project detail pages (project1.html, project2.html, project3.html) should use <body class="project-page"> so they pick up the same extra top margin as About/Contact/Projects via body.project-page main in styles.css.

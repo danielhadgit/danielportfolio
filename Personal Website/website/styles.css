@@ -1,0 +1,191 @@
+:root{
+  --bg: #071B2E; /* deep navy */
+  --surface: #0E2A44; /* card/nav surface */
+  --muted: #D7E7F8; /* lighter muted text for readability */
+  --primary: #0B63D6; /* accent blue */
+  --glass: rgba(255,255,255,0.03);
+}
+
+/* Global */
+html, body { 
+  height: 100%; 
+}
+
+body {
+  background: linear-gradient(180deg,var(--bg),#041425);
+  color: #FFFFFF; /* make main body text pure white for maximum readability */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* space content below fixed navbar on all pages */
+body > main,
+body > header,
+body > section:first-of-type {
+  padding-top: 96px;
+}
+
+/* give pages a bit more breathing room under nav */
+#projects-page,
+.about-page,
+.contact-page,
+body.project-page main {
+  margin-top: 1rem;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+/* Ensure all common textual elements are white for maximum contrast */
+h1, h2, h3, h4, h5, h6, p, li, label, .lead, small, .card-body, .card, .card * {
+  color: #FFFFFF !important;
+}
+
+/* Navbar */
+.navbar{ background: linear-gradient(90deg,var(--surface), #062738); }
+.navbar .navbar-brand{ color: #EAF4FF; font-weight:600; }
+.navbar .nav-link{ color: rgba(234,244,255,0.88); }
+.navbar .nav-link.active{ color: var(--primary); font-weight:600; }
+
+/* Hero */
+.site-hero{ background: linear-gradient(180deg, rgba(6,31,49,0.6), rgba(4,18,30,0.9)); }
+.site-hero h1, .site-hero p{ color: #FFFFFF; }
+
+/* make lead text white (used across pages) */
+.lead{ color: #FFFFFF !important; }
+.lead.text-muted { color: #FFFFFF !important; }
+.hero-image{ border-radius: 0.5rem; max-width:100%; box-shadow: 0 8px 20px rgba(2,10,20,0.6); }
+
+/* Contact and About pages */
+.contact-page .lead.text-muted,
+.about-page .lead.text-muted {
+  color: #FFFFFF !important;
+}
+
+/* Cards */
+.card{ background: linear-gradient(180deg,var(--surface), #0a2438); border: none; color: #EAF4FF; }
+.card .card-text{ color: #FFFFFF !important; }
+.card .card-title{ color: #FFFFFF !important; }
+.card p, .card .text-muted, .card small { color: #FFFFFF !important; }
+
+/* make card content more readable: subtle border and overlay on images */
+.card{ border: 1px solid rgba(255,255,255,0.04); }
+.card-img-top{ filter: brightness(0.75); }
+
+/* Projects: subtle hover + parallax sway (JS-driven) */
+#projects .card{
+  transition: transform 260ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms ease;
+  will-change: transform;
+  transform-origin: center center;
+  backface-visibility: hidden;
+}
+
+/* Barely hover: small shadow increase (transform handled by JS for consistency) */
+#projects .card:hover{
+  box-shadow: 0 18px 34px rgba(2,10,20,0.42);
+}
+
+/* Form container */
+.form-panel{
+  background: rgba(255,255,255,0.06); /* lighter panel for contrast */
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+}
+.form-panel label{ color: #FFFFFF; font-weight:600; }
+.form-panel .form-control{
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #FFFFFF;
+}
+.form-panel .form-control::placeholder{ color: rgba(255,255,255,0.65); }
+.form-panel .form-control:focus{
+  box-shadow: 0 0 0 0.2rem rgba(11,99,214,0.18);
+  border-color: var(--primary);
+}
+
+/* Buttons */
+.btn-primary{ background: var(--primary); border-color: var(--primary); }
+.btn-outline-secondary{ color: var(--muted); border-color: rgba(255,255,255,0.08); }
+
+/* Contact page specific adjustments */
+.contact-page h1, .contact-page .lead, .contact-page h5 { color: #FFFFFF; }
+
+/* Footer */
+footer{ background: linear-gradient(180deg,#031522,#021423); color: #FFFFFF !important; }
+
+/* Override Bootstrap's bg-dark for the home about section so it's the site blue */
+#about.bg-dark {
+  background: linear-gradient(180deg, var(--bg), #041425); /* deep navy gradient */
+  color: #FFFFFF !important;
+}
+
+/* About me */
+
+
+.about-page > .container,
+#about > .container {
+  /* use the site's surface style so the about block matches other cards/panels */
+  background: linear-gradient(180deg, var(--surface), #0a2438);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 12px;
+  padding: 2rem;
+  /* vertical-only shadow: top and bottom; negative spread reduces side bleed */
+  box-shadow: 0 24px 48px -18px rgba(2,10,20,0.65), 0 -24px 48px -18px rgba(2,10,20,0.55);
+  position: relative;
+  z-index: 2; /* ensure the shadow displays over following content */
+  margin-bottom: -1rem; /* slight overlap so the shadow falls onto the next section/footer */
+}
+
+.about-page .hero-image{ border-radius: 0.5rem; box-shadow: 0 12px 30px rgba(2,10,20,0.6); }
+
+/* small adjustment so the inside columns keep spacing from the container edges */
+.about-page .row{ gap: 1.25rem; }
+
+/* (merged above) shared about-style for about page and home about section */
+
+/* Hover lift effect on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  .about-page > .container,
+  #about > .container {
+    transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms cubic-bezier(.2,.9,.2,1);
+    will-change: transform, box-shadow;
+  }
+
+  .about-page > .container:hover,
+  #about > .container:hover {
+    transform: translateY(-6px);
+    /* stronger vertical shadows on hover, still avoid side bleed */
+    box-shadow: 0 34px 80px -22px rgba(2,10,20,0.75), 0 -34px 80px -22px rgba(2,10,20,0.6);
+  }
+}
+
+/* Reduce heavy shadows and overlap on small screens */
+@media (max-width: 767px) {
+  .about-page > .container,
+  #about > .container {
+    box-shadow: 0 10px 22px rgba(2,10,20,0.45);
+    margin-bottom: 0; /* avoid overlap on mobile where space is tight */
+    padding: 1.25rem;
+  }
+}
+
+
+/* Links */
+a{ color: var(--primary); }
+
+/* small responsive spacing for fixed navbar */
+@media (max-width:767px){
+  body > main,
+  body > header,
+  body > section:first-of-type {
+    padding-top: 88px;
+  }
+}
